@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2979a2d5-8cae-4b62-a8c5-f90cab93056a" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/236363_spring_18_hw2$OurTests_getMimounalistTotalGuests.ic" NAME="OurTests.getMimounalistTotalGuests Coverage Results" MODIFIED="1555597313840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>technify.*</FILTER>
+    </SUITE>
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="createModulesForAggregators" value="false" />
+        <option name="dedicatedModuleDir" value="C:\Users\moshesebag\Desktop\236363_winter_18-19_hw2" />
+        <option name="importAutomatically" value="true" />
+        <option name="jdkForImporter" value="11" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1RvylSOoKDJg3UdamdqFLylYeaV" />
+  <component name="PropertiesComponent">
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.generateSingleFile" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="236363_spring_18_hw2" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555774732438" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="olympic" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Peleg\OneDrive - Technion\עבודה\ממן\236363_winter_18-19_hw2\src\test\java\technify" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.SportsBasicTest.getSportTest">
+    <configuration name="AthleteBasicTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="236363_winter_18-19_hw2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="olympic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="olympic" />
+      <option name="MAIN_CLASS_NAME" value="olympic.AthleteBasicTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AthleteBasicTest.getAthleteTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="236363_winter_18-19_hw2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="olympic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="olympic" />
+      <option name="MAIN_CLASS_NAME" value="olympic.AthleteBasicTest" />
+      <option name="METHOD_NAME" value="getAthleteTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SportsBasicTest.getSportTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="236363_winter_18-19_hw2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="olympic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="olympic" />
+      <option name="MAIN_CLASS_NAME" value="olympic.SportsBasicTest" />
+      <option name="METHOD_NAME" value="getSportTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SportsBasicTest.simpleTestCreateAthleteTwice" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="236363_winter_18-19_hw2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="olympic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="olympic" />
+      <option name="MAIN_CLASS_NAME" value="olympic.SportsBasicTest" />
+      <option name="METHOD_NAME" value="simpleTestCreateAthleteTwice" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SportsBasicTest.testDeleteSport" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="236363_winter_18-19_hw2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="olympic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="olympic" />
+      <option name="MAIN_CLASS_NAME" value="olympic.SportsBasicTest" />
+      <option name="METHOD_NAME" value="testDeleteSport" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.SportsBasicTest.testDeleteSport" />
+      <item itemvalue="JUnit.SportsBasicTest.simpleTestCreateAthleteTwice" />
+      <item itemvalue="JUnit.AthleteBasicTest" />
+      <item itemvalue="JUnit.AthleteBasicTest.getAthleteTest" />
+      <item itemvalue="JUnit.SportsBasicTest.getSportTest" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.SportsBasicTest.getSportTest" />
+        <item itemvalue="JUnit.AthleteBasicTest.getAthleteTest" />
+        <item itemvalue="JUnit.AthleteBasicTest" />
+        <item itemvalue="JUnit.SportsBasicTest.simpleTestCreateAthleteTwice" />
+        <item itemvalue="JUnit.SportsBasicTest.testDeleteSport" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2979a2d5-8cae-4b62-a8c5-f90cab93056a" name="Default Changelist" comment="" />
+      <created>1543185204645</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1543185204645</updated>
+      <workItem from="1543185206641" duration="739000" />
+      <workItem from="1543314860494" duration="1112000" />
+      <workItem from="1543345644190" duration="1245000" />
+      <workItem from="1555506813090" duration="4022000" />
+      <workItem from="1555583789632" duration="14933000" />
+      <workItem from="1555607834074" duration="15253000" />
+      <workItem from="1555773876062" duration="858000" />
+      <workItem from="1570562186363" duration="19526000" />
+      <workItem from="1570624368174" duration="20014000" />
+      <workItem from="1570732513860" duration="30000" />
+      <workItem from="1570732958853" duration="106000" />
+      <workItem from="1570734065448" duration="19000" />
+      <workItem from="1570734221293" duration="8000" />
+      <workItem from="1570735480422" duration="106000" />
+      <workItem from="1570735684317" duration="188000" />
+      <workItem from="1570735929718" duration="224000" />
+      <workItem from="1570736809339" duration="196000" />
+      <workItem from="1570737079348" duration="102000" />
+      <workItem from="1570737351961" duration="264000" />
+      <workItem from="1570737663777" duration="607000" />
+      <workItem from="1570738286521" duration="122000" />
+      <workItem from="1570738472638" duration="1524000" />
+      <workItem from="1570740039965" duration="769000" />
+      <workItem from="1570740915812" duration="453000" />
+      <workItem from="1570741412908" duration="38000" />
+      <workItem from="1570741651906" duration="614000" />
+      <workItem from="1570743270676" duration="26395000" />
+      <workItem from="1570822243551" duration="886000" />
+      <workItem from="1570881289286" duration="3000" />
+      <workItem from="1570888161169" duration="28000" />
+      <workItem from="1570888215577" duration="16000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
+          <line>156</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/olympic/Example.java</url>
+          <line>107</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/olympic/SimpleTest.java</url>
+          <line>43</line>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/olympic/SimpleTest.java</url>
+          <line>57</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
+          <line>357</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/olympic/SimpleTest.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
+          <line>208</line>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
+          <line>203</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
+          <line>147</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
+          <line>358</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
+          <line>178</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/olympic/SimpleTest.java</url>
+          <line>69</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/olympic/SimpleTest.java</url>
+          <line>70</line>
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
+          <line>174</line>
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
+          <line>175</line>
+          <option name="timeStamp" value="74" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
+          <line>227</line>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
