@@ -42,17 +42,19 @@ public class Solution {
                     "(\n" +
                     "    aid integer NOT NULL,\n" +
                     "    sid integer NOT NULL,\n" +
-                    "    place integer DEFAULT NULL,\n" +
+                    "    standing integer DEFAULT NULL,\n" +
+                    "    CHECK (standing BETWEEN 1 and 3),\n" +
                     "    FOREIGN KEY (aid) REFERENCES Athletes(id),\n" +
                     "    FOREIGN KEY (sid) REFERENCES Sports(id)\n" +
                     ")");
             statement.execute();
 
-            statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS Observing\n" +
+            statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS Observes\n" +
                     "(\n" +
                     "    aid integer NOT NULL,\n" +
                     "    sid integer NOT NULL,\n" +
                     "    payment integer DEFAULT 100 ,\n" +
+                    "    CHECK (payment > 0),\n" +
                     "    FOREIGN KEY (aid) REFERENCES Athletes(id),\n" +
                     "    FOREIGN KEY (sid) REFERENCES Sports(id)\n" +
                     ")");
@@ -63,7 +65,8 @@ public class Solution {
                     "    id_one integer NOT NULL,\n" +
                     "    id_two integer NOT NULL,\n" +
                     "    FOREIGN KEY (id_one) REFERENCES Athletes(id),\n" +
-                    "    FOREIGN KEY (id_two) REFERENCES Athletes(id)\n" +
+                    "    FOREIGN KEY (id_two) REFERENCES Athletes(id),\n" +
+                    "    CHECK (id_one != id_two)\n" +
                     ")");
             statement.execute();
 
@@ -115,7 +118,7 @@ public class Solution {
         try {
             statement = connection.prepareStatement("DROP TABLE IF EXISTS Participates");
             statement.execute();
-            statement = connection.prepareStatement("DROP TABLE IF EXISTS Observing");
+            statement = connection.prepareStatement("DROP TABLE IF EXISTS Observes");
             statement.execute();
             statement = connection.prepareStatement("DROP TABLE IF EXISTS Friends");
             statement.execute();
@@ -172,6 +175,8 @@ public class Solution {
             pstmt = connection.prepareStatement("SELECT * FROM Athletes WHERE id = ?");
             pstmt.setInt(1, athleteId);
             ResultSet res = pstmt.executeQuery();
+            DBConnector.printResults(res);
+            res.next();
             int id = res.getInt(1);
             String name = res.getString(2);
             String country = res.getString(3);
@@ -181,6 +186,7 @@ public class Solution {
             athlete.setName(name);
             athlete.setCountry(country);
             athlete.setIsActive(active);
+
             return athlete;
         }
         catch (SQLException e){
@@ -291,50 +297,110 @@ public class Solution {
     }
 
     public static ReturnValue athleteJoinSport(Integer sportId, Integer athleteId) {
+        // Select active from Athlete WHERE id = athleteId
+        // if active
+        // INSERT INTO Participates (aid, sid, standings)" +
+        //                    " VALUES ( ?, ? , ? )
+        // exception
+        // else
+        // INSERT INTO Observes (aid, sid, price)" +
+        //                    " VALUES ( ?, ? , ?)
+        // exception
         return OK;
     }
 
     public static ReturnValue athleteLeftSport(Integer sportId, Integer athleteId) {
+        // Select active from Athlete WHERE id = athleteId
+        // if active
+        // DELETE FROM Participates WHERE aid = athleteId AND sid = sportId
+        // else
+        // DELETE FROM Observes WHERE aid = athleteId AND sid = sportId
         return OK;
     }
 
     public static ReturnValue confirmStanding(Integer sportId, Integer athleteId, Integer place) {
+        // Select active from Athlete WHERE id = athleteId
+        // Select * from Sports WHERE sid = sportId (for error handling) maybe throws error in update?
+        // if active
+        // UPDATE Participates SET standing = place WHERE aid = athleteId AND sid = sportId
         return OK;
     }
 
     public static ReturnValue athleteDisqualified(Integer sportId, Integer athleteId) {
+        // Select active from Athlete WHERE id = athleteId
+        // if active
+        // UPDATE Participates SET standing = NULL WHERE aid = athleteId AND sid = sportId
         return OK;
     }
 
     public static ReturnValue makeFriends(Integer athleteId1, Integer athleteId2) {
+        // Select * from Athlete WHERE id = athleteId1
+        // Select * from Athlete WHERE id = athleteId2
+        // if exist
+        // Select * from Friends WHERE id_one = athleteId2 AND id_two = athleteId1
+        // if we found, return OK (they are already friends)
+        // INSERT INTO Friends (id_one, id_two)" +
+        //                    " VALUES (?, ?)
+        // exception
         return OK;
     }
 
     public static ReturnValue removeFriendship(Integer athleteId1, Integer athleteId2) {
+        // Select * from Athlete WHERE id = athleteId1
+        // Select * from Athlete WHERE id = athleteId2
+        // if exist
+        // Select * from Friends WHERE (id_one = athleteId2 AND id_two = athleteId1) OR (id_one = athleteId1 AND id_two = athleteId2)
+        // if not exists return NOT_EXISTS
+        // else
+        // DELETE FROM Friends WHERE id_one = athleteId1 AND id_two = athleteId2
+        // DELETE FROM Friends WHERE id_one = athleteId2 AND id_two = athleteId1
         return OK;
     }
 
     public static ReturnValue changePayment(Integer athleteId, Integer sportId, Integer payment) {
+        // Select active from Athlete WHERE id = athleteId
+        // same as standings, may need to check if sport exists
+        // if !active
+        // UPDATE Observes SET payment = payment WHERE aid = athleteId AND sid = sportId
         return OK;
     }
 
     public static Boolean isAthletePopular(Integer athleteId) {
+        // Select active FROM Athletes WHERE id = athleteId
+        // if active
+        // may need to create view
+        // SELECT sid from Participates WHERE aid = athleteId UNION SELECT sid from Observes WHERE aid = athleteId // all of athelets sports 1
+        // SELECT id_two FROM Friends WHERE id_one = athleteId UNION SELECT id_one FROM Friends WHERE id_two = athleteId // friend of athelte 2
+        // (SELECT sid from Participates WHERE IN (SELECT id_two FROM Friends WHERE id_one = athleteId UNION SELECT id_one FROM Friends WHERE id_two = athleteId) UNION SELECT sid from Observes WHERE IN (SELECT id_two FROM Friends WHERE id_one = athleteId UNION SELECT id_one FROM Friends WHERE id_two = athleteId)) // sports of friends of athletes 3
+        // SELECT * FROM 3 WHERE NOT EXISTS (1)
+        // if its not empty, return true else false
+        // SELECT * FROM Friends WHERE
         return true;
     }
 
     public static Integer getTotalNumberOfMedalsFromCountry(String country) {
+        // SELECT COUNT (SELECT standing FROM Participates WHERE EXISTS (SELECT id FROM Athletes WHERE country = country))
         return 0;
     }
 
     public static Integer getIncomeFromSport(Integer sportId) {
+        // SELECT SUM FROM (SELECT payment FROM Observes WHERE EXISTS FROM (SELECT id FROM Sport WHERE id = sportId))
         return 0;
     }
 
     public static String getBestCountry() {
+        //SELECT MAX FROM (SELECT COUNT FROM (SELECT standing FROM Participates WHERE EXISTS (SELECT id FROM Athletes GROUP_BY country)))
         return "";
     }
 
     public static String getMostPopularCity() {
+        // SELECT MAX(City) FROM (SELECT AVG
+        // SELECT COUNT(SELECT city from Sports GROUP_BY city) number of sport in each city
+        // SELECT sid, COUNT(sid) FROM Participates number of athletes each sport
+        // SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+        //FROM Orders
+        //INNER JOIN Customers
+        //ON Orders.CustomerID=Customers.CustomerID;
         return "";
     }
 

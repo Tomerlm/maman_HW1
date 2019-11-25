@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2979a2d5-8cae-4b62-a8c5-f90cab93056a" name="Default Changelist" comment="" />
+    <list default="true" id="2979a2d5-8cae-4b62-a8c5-f90cab93056a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/olympic/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/olympic/Solution.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +41,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
       <MavenImportingSettings>
@@ -49,12 +56,14 @@
     </option>
   </component>
   <component name="ProjectId" id="1RvylSOoKDJg3UdamdqFLylYeaV" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="GenerateAntBuildDialog.generateSingleFile" value="true" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="236363_spring_18_hw2" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555774732438" />
@@ -92,7 +101,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.SportsBasicTest.getSportTest">
+  <component name="RunManager" selected="JUnit.AthleteBasicTest.getAthleteTest">
     <configuration name="AthleteBasicTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="236363_winter_18-19_hw2" />
       <extension name="coverage">
@@ -156,7 +165,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SportsBasicTest.testDeleteSport" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SportsBasicTest.simpleTestCreateSport" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="236363_winter_18-19_hw2" />
       <extension name="coverage">
         <pattern>
@@ -166,26 +175,26 @@
       </extension>
       <option name="PACKAGE_NAME" value="olympic" />
       <option name="MAIN_CLASS_NAME" value="olympic.SportsBasicTest" />
-      <option name="METHOD_NAME" value="testDeleteSport" />
+      <option name="METHOD_NAME" value="simpleTestCreateSport" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.SportsBasicTest.testDeleteSport" />
       <item itemvalue="JUnit.SportsBasicTest.simpleTestCreateAthleteTwice" />
       <item itemvalue="JUnit.AthleteBasicTest" />
       <item itemvalue="JUnit.AthleteBasicTest.getAthleteTest" />
       <item itemvalue="JUnit.SportsBasicTest.getSportTest" />
+      <item itemvalue="JUnit.SportsBasicTest.simpleTestCreateSport" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.SportsBasicTest.getSportTest" />
         <item itemvalue="JUnit.AthleteBasicTest.getAthleteTest" />
+        <item itemvalue="JUnit.SportsBasicTest.simpleTestCreateSport" />
+        <item itemvalue="JUnit.SportsBasicTest.getSportTest" />
         <item itemvalue="JUnit.AthleteBasicTest" />
         <item itemvalue="JUnit.SportsBasicTest.simpleTestCreateAthleteTwice" />
-        <item itemvalue="JUnit.SportsBasicTest.testDeleteSport" />
       </list>
     </recent_temporary>
   </component>
@@ -236,12 +245,23 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>156</line>
+          <line>159</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -261,7 +281,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>357</line>
+          <line>423</line>
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -271,27 +291,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>208</line>
+          <line>214</line>
           <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>203</line>
+          <line>209</line>
           <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>147</line>
+          <line>150</line>
           <option name="timeStamp" value="67" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>358</line>
+          <line>424</line>
           <option name="timeStamp" value="68" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>178</line>
+          <line>183</line>
           <option name="timeStamp" value="70" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -306,18 +326,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>174</line>
+          <line>179</line>
           <option name="timeStamp" value="73" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>175</line>
+          <line>180</line>
           <option name="timeStamp" value="74" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>227</line>
+          <line>233</line>
           <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
+          <line>171</line>
+          <option name="timeStamp" value="77" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
