@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2979a2d5-8cae-4b62-a8c5-f90cab93056a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/olympic/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/olympic/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/olympic/AthleteBasicTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/olympic/AthleteBasicTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/olympic/SimpleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/olympic/SimpleTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -101,8 +102,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.AthleteBasicTest.getAthleteTest">
-    <configuration name="AthleteBasicTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.SimpleTest.totalMedals">
+    <configuration name="SimpleTest.isPop" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="236363_winter_18-19_hw2" />
       <extension name="coverage">
         <pattern>
@@ -111,29 +112,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="olympic" />
-      <option name="MAIN_CLASS_NAME" value="olympic.AthleteBasicTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AthleteBasicTest.getAthleteTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="236363_winter_18-19_hw2" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="olympic.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="olympic" />
-      <option name="MAIN_CLASS_NAME" value="olympic.AthleteBasicTest" />
-      <option name="METHOD_NAME" value="getAthleteTest" />
+      <option name="MAIN_CLASS_NAME" value="olympic.SimpleTest" />
+      <option name="METHOD_NAME" value="isPop" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SportsBasicTest.getSportTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SimpleTest.nothing" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="236363_winter_18-19_hw2" />
       <extension name="coverage">
         <pattern>
@@ -142,14 +128,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="olympic" />
-      <option name="MAIN_CLASS_NAME" value="olympic.SportsBasicTest" />
-      <option name="METHOD_NAME" value="getSportTest" />
+      <option name="MAIN_CLASS_NAME" value="olympic.SimpleTest" />
+      <option name="METHOD_NAME" value="nothing" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SportsBasicTest.simpleTestCreateAthleteTwice" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SimpleTest.setPayment" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="236363_winter_18-19_hw2" />
       <extension name="coverage">
         <pattern>
@@ -158,14 +144,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="olympic" />
-      <option name="MAIN_CLASS_NAME" value="olympic.SportsBasicTest" />
-      <option name="METHOD_NAME" value="simpleTestCreateAthleteTwice" />
+      <option name="MAIN_CLASS_NAME" value="olympic.SimpleTest" />
+      <option name="METHOD_NAME" value="setPayment" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SportsBasicTest.simpleTestCreateSport" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SimpleTest.totalMedals" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="236363_winter_18-19_hw2" />
       <extension name="coverage">
         <pattern>
@@ -174,27 +160,43 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="olympic" />
-      <option name="MAIN_CLASS_NAME" value="olympic.SportsBasicTest" />
-      <option name="METHOD_NAME" value="simpleTestCreateSport" />
+      <option name="MAIN_CLASS_NAME" value="olympic.SimpleTest" />
+      <option name="METHOD_NAME" value="totalMedals" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SimpleTest.totalPayment" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="236363_winter_18-19_hw2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="olympic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="olympic" />
+      <option name="MAIN_CLASS_NAME" value="olympic.SimpleTest" />
+      <option name="METHOD_NAME" value="totalPayment" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.SportsBasicTest.simpleTestCreateAthleteTwice" />
-      <item itemvalue="JUnit.AthleteBasicTest" />
-      <item itemvalue="JUnit.AthleteBasicTest.getAthleteTest" />
-      <item itemvalue="JUnit.SportsBasicTest.getSportTest" />
-      <item itemvalue="JUnit.SportsBasicTest.simpleTestCreateSport" />
+      <item itemvalue="JUnit.SimpleTest.nothing" />
+      <item itemvalue="JUnit.SimpleTest.setPayment" />
+      <item itemvalue="JUnit.SimpleTest.isPop" />
+      <item itemvalue="JUnit.SimpleTest.totalMedals" />
+      <item itemvalue="JUnit.SimpleTest.totalPayment" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.AthleteBasicTest.getAthleteTest" />
-        <item itemvalue="JUnit.SportsBasicTest.simpleTestCreateSport" />
-        <item itemvalue="JUnit.SportsBasicTest.getSportTest" />
-        <item itemvalue="JUnit.AthleteBasicTest" />
-        <item itemvalue="JUnit.SportsBasicTest.simpleTestCreateAthleteTwice" />
+        <item itemvalue="JUnit.SimpleTest.totalMedals" />
+        <item itemvalue="JUnit.SimpleTest.totalPayment" />
+        <item itemvalue="JUnit.SimpleTest.nothing" />
+        <item itemvalue="JUnit.SimpleTest.isPop" />
+        <item itemvalue="JUnit.SimpleTest.setPayment" />
       </list>
     </recent_temporary>
   </component>
@@ -250,7 +252,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -261,7 +265,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>159</line>
+          <line>164</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -271,80 +275,70 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/olympic/SimpleTest.java</url>
-          <line>43</line>
+          <line>46</line>
           <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/olympic/SimpleTest.java</url>
-          <line>57</line>
+          <line>60</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>423</line>
-          <option name="timeStamp" value="61" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/olympic/SimpleTest.java</url>
-          <line>30</line>
+          <line>33</line>
           <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>214</line>
+          <line>222</line>
           <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>209</line>
+          <line>217</line>
           <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>150</line>
-          <option name="timeStamp" value="67" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>424</line>
-          <option name="timeStamp" value="68" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>183</line>
-          <option name="timeStamp" value="70" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/olympic/SimpleTest.java</url>
-          <line>69</line>
+          <line>72</line>
           <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/olympic/SimpleTest.java</url>
-          <line>70</line>
+          <line>73</line>
           <option name="timeStamp" value="72" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>179</line>
-          <option name="timeStamp" value="73" />
+          <line>351</line>
+          <option name="timeStamp" value="100" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>180</line>
-          <option name="timeStamp" value="74" />
+          <line>861</line>
+          <option name="timeStamp" value="102" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/olympic/SimpleTest.java</url>
+          <line>162</line>
+          <option name="timeStamp" value="121" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>233</line>
-          <option name="timeStamp" value="75" />
+          <line>780</line>
+          <option name="timeStamp" value="126" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>171</line>
-          <option name="timeStamp" value="77" />
+          <line>763</line>
+          <option name="timeStamp" value="127" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/236363_spring_18_hw2$SimpleTest_totalMedals.ic" NAME="SimpleTest.totalMedals Coverage Results" MODIFIED="1575119792993" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>olympic.*</FILTER>
+    </SUITE>
   </component>
 </project>
