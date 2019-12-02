@@ -8,6 +8,7 @@ import olympic.data.PostgreSQLErrorCodes;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static olympic.business.ReturnValue.*;
 
@@ -120,15 +121,15 @@ public class Solution {
 //            statement.execute();
 //            statement = connection.prepareStatement("DROP VIEW IF EXISTS athletesfromcountry");
 //            statement.execute();
-            statement = connection.prepareStatement("DROP TABLE IF EXISTS Participates");
+            statement = connection.prepareStatement("DROP TABLE IF EXISTS Participates CASCADE");
             statement.execute();
-            statement = connection.prepareStatement("DROP TABLE IF EXISTS Observes");
+            statement = connection.prepareStatement("DROP TABLE IF EXISTS Observes CASCADE");
             statement.execute();
-            statement = connection.prepareStatement("DROP TABLE IF EXISTS Friends");
+            statement = connection.prepareStatement("DROP TABLE IF EXISTS Friends CASCADE");
             statement.execute();
-            statement = connection.prepareStatement("DROP TABLE IF EXISTS Athletes");
+            statement = connection.prepareStatement("DROP TABLE IF EXISTS Athletes CASCADE");
             statement.execute();
-            statement = connection.prepareStatement("DROP TABLE IF EXISTS Sports");
+            statement = connection.prepareStatement("DROP TABLE IF EXISTS Sports CASCADE");
             statement.execute();
 
         }
@@ -254,7 +255,8 @@ public class Solution {
             pstmt.execute();
 
         } catch (SQLException e) {
-            return handleError(Integer.valueOf(e.getSQLState()));
+            ReturnValue val = handleError(Integer.valueOf(e.getSQLState()));
+            return val;
         }
         finally {
             try {
@@ -785,7 +787,7 @@ public class Solution {
         //SELECT MAX FROM (SELECT COUNT FROM (SELECT standing FROM Participates WHERE EXISTS (SELECT id FROM Athletes GROUP_BY country)))
         Connection connection = DBConnector.getConnection();
         PreparedStatement pstmt = null;
-        int count = 0;
+        String bestCountry;
         try {
             String q = "CREATE OR REPLACE VIEW AthletesFromCountry AS SELECT id, country From Athletes";
             pstmt = connection.prepareStatement(q);
@@ -793,11 +795,10 @@ public class Solution {
             pstmt = connection.prepareStatement(" CREATE OR REPLACE VIEW CountryStandings AS SELECT aid, standing, country FROM Participates inner join" +
                     " AthletesFromCountry on AthletesFromCountry.id=Participates.aid");
             pstmt.execute();
-            pstmt = connection.prepareStatement("SELECT MAX(standing) FROM (SELECT country, COUNT(standing) from CountryStandings GROUP BY country)");
-            //pstmt.setString(1, country);
+            pstmt = connection.prepareStatement("SELECT country, COUNT(standing) from CountryStandings GROUP BY country ORDER BY count DESC");
             pstmt.executeQuery();
             pstmt.getResultSet().next();
-            count = pstmt.getResultSet().getInt(1);
+            bestCountry = pstmt.getResultSet().getString(1);
         }
         catch (SQLException e){
             return "";
@@ -822,30 +823,192 @@ public class Solution {
             }
         }
 
-        return "";
+        return bestCountry;
     }
 
     public static String getMostPopularCity() {
-        // SELECT MAX(City) FROM (SELECT AVG
-        // SELECT COUNT(SELECT city from Sports GROUP_BY city) number of sport in each city
-        // SELECT sid, COUNT(sid) FROM Participates number of athletes each sport
-        // SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
-        //FROM Orders
-        //INNER JOIN Customers
-        //ON Orders.CustomerID=Customers.CustomerID;
-        return "";
+        Connection connection = DBConnector.getConnection();
+        PreparedStatement pstmt = null;
+        String bestCity = "";
+        try {
+            pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW NumSports AS select city, count(city) from Sports GROUP BY city");
+            pstmt.execute();
+            pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW NumAthletes AS select city, sum(athlete_count) from Sports GROUP BY city");
+            pstmt.execute();
+            pstmt = connection.prepareStatement(" CREATE OR REPLACE VIEW CityCounts AS SELECT NumSports.city, count, sum FROM NumSports inner join" +
+                    " NumAthletes on NumSports.city=NumAthletes.city");
+            pstmt.execute();
+            pstmt = connection.prepareStatement("select city, (sum / count) as avg from CityCounts ORDER BY avg DESC");
+            pstmt.executeQuery();
+            if(!pstmt.getResultSet().next()){
+                return "";
+            }
+            bestCity = pstmt.getResultSet().getString(1);
+
+            //bestCountry = pstmt.getResultSet().getString(1);
+        }
+        catch (SQLException e){
+            return null;
+        }
+        finally {
+            try {
+                pstmt = connection.prepareStatement("DROP VIEW IF EXISTS CityCounts");
+                pstmt.execute();
+                pstmt = connection.prepareStatement("DROP VIEW IF EXISTS NumSports");
+                pstmt.execute();
+                pstmt = connection.prepareStatement("DROP VIEW IF EXISTS NumAthletes");
+                pstmt.execute();
+                if(pstmt != null){
+                    pstmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                return null;
+            }
+        }
+
+        return bestCity;
     }
 
     public static ArrayList<Integer> getAthleteMedals(Integer athleteId) {
-        return new ArrayList<>();
+        //SELECT MAX FROM (SELECT COUNT FROM (SELECT standing FROM Participates WHERE EXISTS (SELECT id FROM Athletes GROUP_BY country)))
+        Connection connection = DBConnector.getConnection();
+        PreparedStatement pstmt = null;
+        ArrayList list = new ArrayList<Integer>(Arrays.asList(0, 0, 0));
+        try {
+            String s = "SELECT standing, count(standing) FROM Participates WHERE aid = " + athleteId + " GROUP BY standing ORDER BY standing ASC";
+            printQuery(s, pstmt, connection);
+            pstmt = connection.prepareStatement(s);
+            pstmt.executeQuery();
+            ResultSet res = pstmt.getResultSet();
+            while(res.next()){
+                int pos = res.getInt(1) - 1;
+                if(pos == -1 ) continue;
+                int val = res.getInt(2);
+                list.add(pos, val);
+            }
+        }
+        catch (SQLException e){
+            return new ArrayList<Integer>(Arrays.asList(0, 0, 0));
+        }
+        finally {
+            try {
+                pstmt = connection.prepareStatement("DROP VIEW IF EXISTS AthleteMedals");
+                pstmt.execute();
+                pstmt = connection.prepareStatement("DROP VIEW IF EXISTS AthletesFromCountry");
+                pstmt.execute();
+                if(pstmt != null){
+                    pstmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return new ArrayList<Integer>(Arrays.asList(0, 0, 0));
+            }
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                return new ArrayList<Integer>(Arrays.asList(0, 0, 0));
+            }
+        }
+
+        return list;
     }
 
     public static ArrayList<Integer> getMostRatedAthletes() {
-        return new ArrayList<>();
+        Connection connection = DBConnector.getConnection();
+        PreparedStatement pstmt = null;
+        ArrayList list = new ArrayList<Integer>();
+        try {
+            String s = "SELECT aid, (4 - standing) as rating FROM Participates";
+            pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW Ratings AS " + s);
+            pstmt.execute();
+            printQuery("SELECT aid, SUM(rating) FROM Ratings GROUP BY aid ORDER BY sum DESC, aid ASC", pstmt, connection);
+            pstmt = connection.prepareStatement("SELECT aid, SUM(rating) FROM Ratings GROUP BY aid ORDER BY sum DESC, aid ASC");
+            pstmt.executeQuery();
+            ResultSet res = pstmt.getResultSet();
+            while(res.next()){
+                int val = res.getInt(1);
+                list.add(val);
+            }
+        }
+        catch (SQLException e){
+            return list;
+        }
+        finally {
+            try {
+                pstmt = connection.prepareStatement("DROP VIEW IF EXISTS Ratings");
+                pstmt.execute();
+
+                if(pstmt != null){
+                    pstmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return list;
+            }
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                return list;
+            }
+        }
+
+        return list;
     }
 
     public static ArrayList<Integer> getCloseAthletes(Integer athleteId) {
-        return new ArrayList<>();
+        Connection connection = DBConnector.getConnection();
+        PreparedStatement pstmt = null;
+        ArrayList list = new ArrayList<Integer>();
+        try {
+            String s = "SELECT sid FROM Participates Where aid = "+ athleteId + " UNION SELECT sid FROM Observes Where aid = "+ athleteId;
+            pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW AthleteSports AS " + s);
+            pstmt.execute();
+            printQuery("select * from AthleteSports", pstmt,connection);
+            s = "select aid, sid from Participates where aid != " + athleteId + " union select aid, sid from Observes where aid != " + athleteId;
+            pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW OtherSports AS " + s);
+            pstmt.execute();
+            printQuery("select * from OtherSports", pstmt,connection);
+            printQuery("SELECT aid, count(aid) FROM OtherSports inner join AthleteSports on( OtherSports.sid = AthleteSports.sid ) GROUP BY aid", pstmt, connection);
+            printQuery("select aid, x.count / y.count as sum from (select count(*) from AthleteSports) x join (SELECT aid, count(aid) FROM OtherSports inner join AthleteSports on( OtherSports.sid = AthleteSports.sid ) GROUP BY aid) y on 1=1", pstmt, connection);
+//            pstmt = connection.prepareStatement("SELECT aid, SUM(rating) FROM Ratings GROUP BY aid ORDER BY sum DESC, aid ASC");
+//            pstmt.executeQuery();
+//            ResultSet res = pstmt.getResultSet();
+//            while(res.next()){
+//                int val = res.getInt(1);
+//                list.add(val);
+//            }
+        }
+        catch (SQLException e){
+            return list;
+        }
+        finally {
+            try {
+                pstmt = connection.prepareStatement("DROP VIEW IF EXISTS AthleteSports");
+                pstmt.execute();
+                pstmt = connection.prepareStatement("DROP VIEW IF EXISTS OtherSports");
+                pstmt.execute();
+
+                if(pstmt != null){
+                    pstmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return list;
+            }
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                return list;
+            }
+        }
+
+        return list;
     }
 
     public static ArrayList<Integer> getSportsRecommendation(Integer athleteId) {
@@ -853,13 +1016,19 @@ public class Solution {
     }
 
     private static ReturnValue handleError(int errVal){
-        if(errVal == PostgreSQLErrorCodes.UNIQUE_VIOLATION.getValue()){
+        if(errVal == PostgreSQLErrorCodes.UNIQUE_VIOLATION.getValue() || errVal == PostgreSQLErrorCodes.FOREIGN_KEY_VIOLATION.getValue()){
             return ALREADY_EXISTS;
         }
         else if( errVal == PostgreSQLErrorCodes.NOT_NULL_VIOLATION.getValue() ||
                 errVal == PostgreSQLErrorCodes.CHECK_VIOLATION.getValue())
             return BAD_PARAMS;
         return ERROR;
+    }
+
+    private static void printQuery(String query, PreparedStatement pstmt, Connection connection) throws SQLException {
+        pstmt = connection.prepareStatement(query);
+        pstmt.executeQuery();
+        DBConnector.printResults(pstmt.getResultSet());
     }
 
 

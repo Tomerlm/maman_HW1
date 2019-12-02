@@ -3,6 +3,8 @@ package olympic;
 import org.junit.Test;
 import olympic.business.*;
 
+import java.util.ArrayList;
+
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static olympic.business.ReturnValue.*;
@@ -170,10 +172,10 @@ public class SimpleTest extends AbstractTest{
         ret = Solution.getTotalNumberOfMedalsFromCountry("Argentina");
         assertEquals(2, ret);
         Solution.athleteDisqualified(10 , 10);
-        createAndAddAthlete(12, "bjorn", false, "Sweden");
+        createAndAddAthlete(12, "bjorn", true, "Sweden");
         Solution.athleteJoinSport(10, 12);
         Solution.confirmStanding(10, 12, 3);
-        createAndAddAthlete(13, "bjorn", false, "Sweden");
+        createAndAddAthlete(13, "bjorn", true, "Sweden");
         Solution.athleteJoinSport(10, 13);
         Solution.confirmStanding(10, 13, 3);
         String retStr = Solution.getBestCountry();
@@ -196,6 +198,130 @@ public class SimpleTest extends AbstractTest{
 
     }
 
+    @Test
+    public void avgSport(){
+        //check for one athelte
+        String city = Solution.getMostPopularCity();
+        assertEquals(city, "");
+        createAndAddAthlete(1, "avi" , true, "israel");
+        createAndAddAthlete(2, "moshe", true, "israel");
+        createAndAddAthlete(3, "moshe", true, "israel");
+        createAndAddAthlete(4, "moshe", true, "israel");
+        createAndAddSport(10, "soccer", "haifa");
+        createAndAddSport(11, "baseball", "telaviv");
+        createAndAddSport(12, "basketbal", "haifa");
+        Solution.athleteJoinSport(10, 1);
+        Solution.athleteJoinSport(10, 2);
+        Solution.athleteJoinSport(12, 3);
+        Solution.athleteJoinSport(12, 4);
+        Solution.athleteJoinSport(11, 1);
+        Solution.athleteJoinSport(11, 2);
+        Solution.athleteJoinSport(11, 3);
+        city = Solution.getMostPopularCity();
+        assertEquals(city, "telaviv");
+
+    }
+
+    @Test
+    public void multiInserts(){
+        int id = 1;
+        String name = "tosi";
+        String city = "haifa";
+        Sport a = new Sport();
+        a.setId(id);
+        a.setCity(city);
+        a.setName(name);
+        ReturnValue val = Solution.addSport(a);
+        assertEquals(OK, val);
+        val = Solution.addSport(a);
+        assertEquals(ALREADY_EXISTS, val);
+
+
+
+    }
+
+    @Test
+    public void getAthleteMedals(){
+        ArrayList listt = Solution.getAthleteMedals(2);
+        assertEquals(0, listt.get(0));
+        assertEquals(0, listt.get(1));
+        assertEquals(0, listt.get(2));
+        createAndAddAthlete(1, "tomer", true, "israel");
+        createAndAddSport(1, "soccer", "haifa");
+        createAndAddSport(2, "basket", "haifa");
+        createAndAddSport(3, "cricket", "tlv");
+        createAndAddSport(4, "cricket", "tlv");
+        Solution.athleteJoinSport(4, 1);
+        Solution.athleteJoinSport(1, 1);
+        Solution.athleteJoinSport(3, 1);
+        Solution.athleteJoinSport(2, 1);
+        Solution.confirmStanding(1, 1, 1);
+        Solution.confirmStanding(4, 1, 3);
+        Solution.confirmStanding(2, 1, 2);
+        Solution.confirmStanding(3, 1, 3);
+        ArrayList list = Solution.getAthleteMedals(1);
+        assertEquals(1, list.get(0));
+        assertEquals(1, list.get(1));
+        assertEquals(2, list.get(2));
+        Solution.athleteDisqualified(1, 1);
+        list = Solution.getAthleteMedals(1);
+        assertEquals(0, list.get(0));
+        assertEquals(1, list.get(1));
+        assertEquals(2, list.get(2));
+
+
+
+    }
+
+    @Test
+    public void getMostRatedAth(){
+        int count = 1;
+        for(int i = 1; i <= 8; i++ ){
+            createAndAddAthlete(i , "tomer", true, "israel");
+            createAndAddSport(i, "soccer", "haifa");
+            Solution.athleteJoinSport(i, i);
+            Solution.confirmStanding(i, i , count++);
+            if(count == 4){
+                count = 1;
+            }
+        }
+
+        ArrayList list = Solution.getMostRatedAthletes();
+        for(int i = 0;  i < list.size(); i++ ){
+            System.out.println(list.get(i));
+        }
+
+
+
+    }
+
+    @Test
+    public void getClosest(){
+        for(int i = 1; i <= 8; i++ ){
+            createAndAddAthlete(i , "tomer", true, "israel");
+            createAndAddSport(i, "soccer", "haifa");
+            Solution.athleteJoinSport(i, i);
+            Solution.athleteJoinSport(1, i);
+        }
+        for(int i = 9; i <= 12; i++ ){
+            createAndAddAthlete(i , "tomer", false, "israel");
+            createAndAddSport(i, "soccer", "haifa");
+            Solution.athleteJoinSport(1, i);
+        }
+
+        ArrayList list = Solution.getCloseAthletes(1);
+        for(int i = 0;  i < list.size(); i++ ){
+            System.out.println(list.get(i));
+        }
+
+        Solution.athleteJoinSport(3, 1);
+        list = Solution.getCloseAthletes(1);
+        for(int i = 0;  i < list.size(); i++ ){
+            System.out.println(list.get(i));
+        }
+
+    }
+
     public void addAtheleteSport(int aid, boolean isActive, int sid){
         Athlete a = new Athlete();
         a.setId(aid);
@@ -211,12 +337,19 @@ public class SimpleTest extends AbstractTest{
         Solution.athleteJoinSport(sid,aid);
     }
     public void createAndAddAthlete(int id, String name, boolean isActive, String country){
-        Athlete bjorn = new Athlete();
-        bjorn.setId(12);
-        bjorn.setIsActive(isActive);
-        bjorn.setName(name);
-        bjorn.setCountry(country);
-        Solution.addAthlete(bjorn);
+        Athlete a = new Athlete();
+        a.setId(id);
+        a.setIsActive(isActive);
+        a.setName(name);
+        a.setCountry(country);
+        Solution.addAthlete(a);
+    }
+    public void createAndAddSport(int id, String name, String city){
+        Sport a = new Sport();
+        a.setId(id);
+        a.setCity(city);
+        a.setName(name);
+        Solution.addSport(a);
     }
 
 }
