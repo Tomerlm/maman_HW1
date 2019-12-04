@@ -75,7 +75,7 @@ public class Solution {
             statement.execute();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
             handleError(Integer.valueOf(e.getSQLState()));
         }
         finally {
@@ -84,12 +84,12 @@ public class Solution {
                     statement.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+
             }
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+
             }
         }
     }
@@ -100,17 +100,17 @@ public class Solution {
         PreparedStatement statement = null;
 
         try {
-//            statement = connection.prepareStatement("DELETE FROM Participates");
-//            statement.execute();
-//            statement = connection.prepareStatement("DELETE FROM Observing");
-//            statement.execute();
+            statement = connection.prepareStatement("DELETE FROM Participates");
+            statement.execute();
+            statement = connection.prepareStatement("DELETE FROM Observing");
+            statement.execute();
             statement = connection.prepareStatement("DELETE FROM Athletes");
             statement.execute();
             statement = connection.prepareStatement("DELETE FROM Sports");
             statement.execute();
         }
         catch (SQLException e){
-            e.printStackTrace();
+
         }
         //DELETE FROM employees;
     }
@@ -137,7 +137,7 @@ public class Solution {
 
         }
         catch (SQLException e){
-            e.printStackTrace();
+
         }
 
     }
@@ -165,13 +165,13 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+
                 return ERROR;
             }
             try {
                 connection.close();
             } catch (SQLException e) {
-                //e.printStackTrace()();
+
             }
         }
         return OK;
@@ -201,7 +201,7 @@ public class Solution {
             return athlete;
         }
         catch (SQLException e){
-            e.printStackTrace();
+
             return Athlete.badAthlete();
         }
     }
@@ -218,11 +218,7 @@ public class Solution {
             if(!res.next()){
                 return NOT_EXISTS;
             }
-//            System.out.println("Before: \n");
-//            printQuery("select * from Athletes", pstmt, connection);
-//            printQuery("select * from Participates", pstmt, connection);
-//            printQuery("select * from Observes", pstmt, connection);
-//            printQuery("select * from Friends", pstmt, connection);
+
             pstmt = connection.prepareStatement("DELETE FROM Participates WHERE aid = ?");
             pstmt.setInt(1, aid);
             pstmt.execute();
@@ -237,11 +233,6 @@ public class Solution {
             pstmt.setInt(1, aid);
             pstmt.execute();
 
-//            System.out.println("AFTER: \n");
-//            printQuery("select * from Athletes", pstmt, connection);
-//            printQuery("select * from Participates", pstmt, connection);
-//            printQuery("select * from Observes", pstmt, connection);
-//            printQuery("select * from Friends", pstmt, connection);
         }
         catch (SQLException e){
             return handleError(Integer.valueOf(e.getSQLState()));
@@ -252,13 +243,13 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+
                 return ERROR;
             }
             try {
                 connection.close();
             } catch (SQLException e) {
-                //e.printStackTrace()();
+
             }
         }
         return OK;
@@ -287,13 +278,13 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+
                 return ERROR;
             }
             try {
                 connection.close();
             } catch (SQLException e) {
-                //e.printStackTrace()();
+
             }
         }
         return OK;
@@ -321,7 +312,7 @@ public class Solution {
             return sport;
         }
         catch (SQLException e){
-            e.printStackTrace();
+
             return Sport.badSport();
         } }
 
@@ -391,7 +382,7 @@ public class Solution {
                 insertStatement.execute();
             }
 
-            //printQuery("select * from Participates" , insertStatement, connection);
+
 
 
         }
@@ -407,13 +398,13 @@ public class Solution {
                     updateStatement.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+
                 return ERROR;
             }
             try {
                 connection.close();
             } catch (SQLException e) {
-                //e.printStackTrace()();
+
             }
         }
         return OK;
@@ -438,7 +429,16 @@ public class Solution {
             if(!res.next()){
                 return NOT_EXISTS;
             }
+
             if (isActive){
+                insertStatement = connection.prepareStatement("SELECT aid,sid from Participates WHERE sid = ? AND aid = ?");
+                insertStatement.setInt(1, sportId);
+                insertStatement.setInt(2, athleteId);
+                insertStatement.executeQuery();
+                res = insertStatement.executeQuery();
+                if(!res.next()){
+                    return NOT_EXISTS;
+                }
                 insertStatement = connection.prepareStatement("DELETE FROM Participates WHERE aid=? AND sid=?");
                 updateStatement = connection.prepareStatement("UPDATE Sports SET athlete_count=athlete_count-1 WHERE id=?");
                 insertStatement.setInt(1, athleteId);
@@ -449,6 +449,14 @@ public class Solution {
 
             }
             else{
+                insertStatement = connection.prepareStatement("SELECT aid,sid from Observes WHERE sid = ? AND aid = ?");
+                insertStatement.setInt(1, sportId);
+                insertStatement.setInt(2, athleteId);
+                insertStatement.executeQuery();
+                res = insertStatement.executeQuery();
+                if(!res.next()){
+                    return NOT_EXISTS;
+                }
                 insertStatement = connection.prepareStatement("DELETE FROM Observes WHERE aid=? AND sid=?");
                 insertStatement.setInt(1, athleteId);
                 insertStatement.setInt(2, sportId);
@@ -475,7 +483,7 @@ public class Solution {
             try {
                 connection.close();
             } catch (SQLException e) {
-                //e.printStackTrace()();
+
             }
         }
         return OK;
@@ -523,7 +531,7 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+
                 return ERROR;
             }
             try {
@@ -575,13 +583,13 @@ public class Solution {
                 pstmt.close();
             }
             } catch (SQLException e) {
-                e.printStackTrace();
+
                 return ERROR;
             }
             try {
                 connection.close();
             } catch (SQLException e) {
-                //e.printStackTrace()();
+
             }
         }
         return OK;
@@ -630,13 +638,13 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+
                 return ERROR;
             }
             try {
                 connection.close();
             } catch (SQLException e) {
-                //e.printStackTrace()();
+
             }
         }
         return OK;
@@ -676,7 +684,7 @@ public class Solution {
 
         }
         catch (SQLException e){
-            e.printStackTrace();
+
             return handleError(Integer.valueOf(e.getSQLState()));
         }
         finally{
@@ -685,13 +693,13 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+
                 return ERROR;
             }
             try {
                 connection.close();
             } catch (SQLException e) {
-                //e.printStackTrace()();
+
             }
         }
         return OK;
@@ -724,7 +732,7 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+
                 return ERROR;
             }
             try {
@@ -761,13 +769,18 @@ public class Solution {
                     " UNION (SELECT sid FROM Observes inner join AllFriends on AllFriends.aid = Observes.aid)";
             pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW SportsOfFriends AS " + sportOfFriends);
             pstmt.execute();
+
             pstmt = connection.prepareStatement("SELECT * FROM SportsOfFriends");
             pstmt.executeQuery();
+
             pstmt = connection.prepareStatement("SELECT SportsOfFriends.sid FROM SportsOfFriends full outer join AllSports on SportsOfFriends.sid = AllSports.sid" +
                     " where SportsOfFriends.sid is null or AllSports.sid is null");
             pstmt.executeQuery();
-            pstmt.getResultSet().next();
-            if(pstmt.getResultSet().getString(1) != null){
+//            pstmt.getResultSet().next();
+//            if(pstmt.getResultSet().getString(1) != null){
+//                return false;
+//            }
+            if(pstmt.getResultSet().next()){
                 return false;
             }
 
@@ -792,7 +805,7 @@ public class Solution {
             try {
                 connection.close();
             } catch (SQLException e) {
-                //e.printStackTrace()();
+
                 return false;
             }
         }
@@ -831,7 +844,7 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                //e.printStackTrace();
+
                 return 0;
             }
             try {
@@ -850,6 +863,7 @@ public class Solution {
         int count = 0;
         try {
             String q = "SELECT SUM(payment) FROM Observes where sid = ?";
+            printQuery("select * from observes", pstmt, connection);
             pstmt = connection.prepareStatement(q);
             pstmt.setInt(1, sportId);
             pstmt.executeQuery();
@@ -865,7 +879,7 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                //e.printStackTrace();
+
                 return 0;
             }
             try {
@@ -910,7 +924,7 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                //e.printStackTrace();
+
                 return null;
             }
             try {
@@ -932,11 +946,11 @@ public class Solution {
             pstmt.execute();
             pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW NumAthletes AS select city, sum(athlete_count) from Sports GROUP BY city");
             pstmt.execute();
-            printQuery("select * from NumAthletes", pstmt, connection);
+
             pstmt = connection.prepareStatement(" CREATE OR REPLACE VIEW CityCounts AS SELECT NumSports.city, count, sum FROM NumSports inner join" +
                     " NumAthletes on NumSports.city=NumAthletes.city");
             pstmt.execute();
-            printQuery("select city, (1.0*sum / count) as avg from CityCounts ORDER BY avg DESC, city DESC", pstmt, connection);
+
             pstmt = connection.prepareStatement("select city, (1.0*sum / count) as avg from CityCounts ORDER BY avg DESC, city DESC");
             pstmt.executeQuery();
             if(!pstmt.getResultSet().next()){
@@ -961,7 +975,7 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                //e.printStackTrace();
+
                 return null;
             }
             try {
@@ -981,7 +995,7 @@ public class Solution {
         ArrayList list = new ArrayList<Integer>(Arrays.asList(0, 0, 0));
         try {
             String s = "SELECT standing, count(standing) FROM Participates WHERE aid = " + athleteId + " GROUP BY standing ORDER BY standing ASC";
-            printQuery(s, pstmt, connection);
+
             pstmt = connection.prepareStatement(s);
             pstmt.executeQuery();
             ResultSet res = pstmt.getResultSet();
@@ -1005,7 +1019,7 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                //e.printStackTrace();
+
                 return new ArrayList<Integer>(Arrays.asList(0, 0, 0));
             }
             try {
@@ -1026,7 +1040,7 @@ public class Solution {
             String s = "SELECT aid, (4 - standing) as rating FROM Participates";
             pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW Ratings AS " + s);
             pstmt.execute();
-            //printQuery("SELECT aid, SUM(rating) FROM Ratings GROUP BY aid ORDER BY sum DESC, aid ASC", pstmt, connection);
+
             pstmt = connection.prepareStatement("SELECT aid, SUM(rating) FROM Ratings GROUP BY aid ORDER BY sum DESC, aid ASC");
             pstmt.executeQuery();
             ResultSet res = pstmt.getResultSet();
@@ -1049,7 +1063,7 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-               // e.printStackTrace();
+
                 return list;
             }
             try {
@@ -1111,7 +1125,7 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+
                 return list;
             }
             try {
@@ -1172,7 +1186,7 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+
                 return list;
             }
             try {
