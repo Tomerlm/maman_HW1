@@ -11,13 +11,14 @@ public class SportsBasicTest extends AbstractTest {
     @Test
     public void simpleTestCreateSport()
     {
+        for(int i=1 ; i < 100; i++){
         Sport a = new Sport();
-        a.setId(1);
+        a.setId(i);
         a.setName("Baseball");
         a.setCity("Haifa");
         a.setAthletesCount(0);
         ReturnValue ret = Solution.addSport(a);
-        assertEquals(OK, ret);
+        assertEquals(OK, ret);}
     }
 
     @Test
@@ -71,5 +72,7 @@ public class SportsBasicTest extends AbstractTest {
         Sport b = Solution.getSport(1);
         assertEquals(b.getId() , a.getId());
         assertEquals(b.getName() , a.getName());
+        b = Solution.getSport(2);
+        assertEquals(b.getId() , -1);
     }
 }

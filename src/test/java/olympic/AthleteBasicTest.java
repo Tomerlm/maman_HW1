@@ -103,5 +103,23 @@ public class AthleteBasicTest extends AbstractTest {
         assertEquals(OK, ret);
         test = Solution.getSport(10);
         assertEquals(0, test.getAthletesCount());
+        ret = Solution.athleteJoinSport(11, 10);
+        assertEquals(NOT_EXISTS, ret);
+        ret = Solution.athleteJoinSport(10, 11);
+        assertEquals(NOT_EXISTS, ret);
+        ret = Solution.athleteJoinSport(10, 10);
+        assertEquals(OK, ret);
+        ret = Solution.athleteJoinSport(10, 10);
+        assertEquals(ALREADY_EXISTS, ret);
+        ret = Solution.athleteLeftSport(10, 11);
+        assertEquals(NOT_EXISTS, ret);
+        ret = Solution.athleteLeftSport(11, 10);
+        assertEquals(NOT_EXISTS, ret);
+        ret = Solution.athleteLeftSport(11, 11);
+        assertEquals(NOT_EXISTS, ret);
+
+
     }
+
+
 }

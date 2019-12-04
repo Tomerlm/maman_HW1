@@ -46,7 +46,8 @@ public class Solution {
                     "    standing integer DEFAULT NULL,\n" +
                     "    CHECK (standing BETWEEN 1 and 3),\n" +
                     "    FOREIGN KEY (aid) REFERENCES Athletes(id),\n" +
-                    "    FOREIGN KEY (sid) REFERENCES Sports(id)\n" +
+                    "    FOREIGN KEY (sid) REFERENCES Sports(id),\n" +
+                    "    UNIQUE (aid, sid)" +
                     ")");
             statement.execute();
 
@@ -57,7 +58,8 @@ public class Solution {
                     "    payment integer DEFAULT 100 ,\n" +
                     "    CHECK (payment > 0),\n" +
                     "    FOREIGN KEY (aid) REFERENCES Athletes(id),\n" +
-                    "    FOREIGN KEY (sid) REFERENCES Sports(id)\n" +
+                    "    FOREIGN KEY (sid) REFERENCES Sports(id),\n" +
+                    "    UNIQUE (aid, sid)" +
                     ")");
             statement.execute();
 
@@ -67,7 +69,8 @@ public class Solution {
                     "    id_two integer NOT NULL,\n" +
                     "    FOREIGN KEY (id_one) REFERENCES Athletes(id),\n" +
                     "    FOREIGN KEY (id_two) REFERENCES Athletes(id),\n" +
-                    "    CHECK (id_one != id_two)\n" +
+                    "    CHECK (id_one != id_two),\n" +
+                    "    UNIQUE (id_one, id_two)" +
                     ")");
             statement.execute();
 
@@ -181,7 +184,6 @@ public class Solution {
             pstmt = connection.prepareStatement("SELECT * FROM Athletes WHERE id = ?");
             pstmt.setInt(1, athleteId);
             ResultSet res = pstmt.executeQuery();
-//            DBConnector.printResults(res);
             if(!res.next()){
                 return Athlete.badAthlete();
             }
@@ -216,9 +218,30 @@ public class Solution {
             if(!res.next()){
                 return NOT_EXISTS;
             }
+//            System.out.println("Before: \n");
+//            printQuery("select * from Athletes", pstmt, connection);
+//            printQuery("select * from Participates", pstmt, connection);
+//            printQuery("select * from Observes", pstmt, connection);
+//            printQuery("select * from Friends", pstmt, connection);
+            pstmt = connection.prepareStatement("DELETE FROM Participates WHERE aid = ?");
+            pstmt.setInt(1, aid);
+            pstmt.execute();
+            pstmt = connection.prepareStatement("DELETE FROM Observes WHERE aid = ?");
+            pstmt.setInt(1, aid);
+            pstmt.execute();
+            pstmt = connection.prepareStatement("DELETE FROM Friends WHERE id_one = ? OR id_two = ?");
+            pstmt.setInt(1, aid);
+            pstmt.setInt(2, aid);
+            pstmt.execute();
             pstmt = connection.prepareStatement("DELETE FROM Athletes WHERE id = ?");
             pstmt.setInt(1, aid);
             pstmt.execute();
+
+//            System.out.println("AFTER: \n");
+//            printQuery("select * from Athletes", pstmt, connection);
+//            printQuery("select * from Participates", pstmt, connection);
+//            printQuery("select * from Observes", pstmt, connection);
+//            printQuery("select * from Friends", pstmt, connection);
         }
         catch (SQLException e){
             return handleError(Integer.valueOf(e.getSQLState()));
@@ -314,9 +337,16 @@ public class Solution {
             if(!res.next()){
                 return NOT_EXISTS;
             }
+            pstmt = connection.prepareStatement("DELETE FROM Participates WHERE sid = ?");
+            pstmt.setInt(1, sid);
+            pstmt.execute();
+            pstmt = connection.prepareStatement("DELETE FROM Observes WHERE sid = ?");
+            pstmt.setInt(1, sid);
+            pstmt.execute();
             pstmt = connection.prepareStatement("DELETE FROM Sports WHERE id = ?");
             pstmt.setInt(1, sid);
             pstmt.execute();
+
         }
         catch (SQLException e){
             return handleError(Integer.valueOf(e.getSQLState()));
@@ -332,10 +362,23 @@ public class Solution {
             insertStatement = connection.prepareStatement("SELECT active from Athletes WHERE id = ?");
             insertStatement.setInt(1, athleteId);
             ResultSet res = insertStatement.executeQuery();
-            res.next();
+
+            if(!res.next()){
+                return NOT_EXISTS;
+            }
             boolean isActive  = res.getBoolean(1);
+            insertStatement = connection.prepareStatement("SELECT id from Sports WHERE id = ?");
+            insertStatement.setInt(1, sportId);
+            insertStatement.executeQuery();
+            res = insertStatement.executeQuery();
+            if(!res.next()){
+                return NOT_EXISTS;
+            }
             if (isActive){
                 insertStatement = connection.prepareStatement("INSERT INTO Participates (aid, sid) VALUES ( ?, ? )");
+                insertStatement.setInt(1, athleteId);
+                insertStatement.setInt(2, sportId);
+                insertStatement.execute();
                 updateStatement = connection.prepareStatement("UPDATE Sports SET athlete_count=athlete_count+1 WHERE id=?");
                 updateStatement.setInt(1, sportId);
                 updateStatement.execute();
@@ -343,15 +386,16 @@ public class Solution {
             }
             else{
                 insertStatement = connection.prepareStatement("INSERT INTO Observes (aid, sid) VALUES ( ?, ? )");
+                insertStatement.setInt(1, athleteId);
+                insertStatement.setInt(2, sportId);
+                insertStatement.execute();
             }
-            insertStatement.setInt(1, athleteId);
-            insertStatement.setInt(2, sportId);
 
-            insertStatement.execute();
+            //printQuery("select * from Participates" , insertStatement, connection);
+
 
         }
         catch (SQLException e){
-            e.printStackTrace();
             return handleError(Integer.valueOf(e.getSQLState()));
         }
         finally {
@@ -383,26 +427,38 @@ public class Solution {
             insertStatement = connection.prepareStatement("SELECT active from Athletes WHERE id = ?");
             insertStatement.setInt(1, athleteId);
             ResultSet res = insertStatement.executeQuery();
-            res.next();
+            if(!res.next()){
+                return NOT_EXISTS;
+            }
             boolean isActive  = res.getBoolean(1);
+            insertStatement = connection.prepareStatement("SELECT id from Sports WHERE id = ?");
+            insertStatement.setInt(1, sportId);
+            insertStatement.executeQuery();
+            res = insertStatement.executeQuery();
+            if(!res.next()){
+                return NOT_EXISTS;
+            }
             if (isActive){
                 insertStatement = connection.prepareStatement("DELETE FROM Participates WHERE aid=? AND sid=?");
                 updateStatement = connection.prepareStatement("UPDATE Sports SET athlete_count=athlete_count-1 WHERE id=?");
+                insertStatement.setInt(1, athleteId);
+                insertStatement.setInt(2, sportId);
+                insertStatement.execute();
                 updateStatement.setInt(1, sportId);
                 updateStatement.execute();
 
             }
             else{
                 insertStatement = connection.prepareStatement("DELETE FROM Observes WHERE aid=? AND sid=?");
-            }
-            insertStatement.setInt(1, athleteId);
-            insertStatement.setInt(2, sportId);
+                insertStatement.setInt(1, athleteId);
+                insertStatement.setInt(2, sportId);
 
-            insertStatement.execute();
+                insertStatement.execute();
+            }
+
 
         }
         catch (SQLException e){
-            e.printStackTrace();
             return handleError(Integer.valueOf(e.getSQLState()));
         }
         finally {
@@ -414,7 +470,6 @@ public class Solution {
                     updateStatement.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
                 return ERROR;
             }
             try {
@@ -430,6 +485,28 @@ public class Solution {
         Connection connection = DBConnector.getConnection();
         PreparedStatement pstmt = null;
         try{
+            pstmt = connection.prepareStatement("SELECT active from Athletes WHERE id = ?");
+            pstmt.setInt(1, athleteId);
+            ResultSet res = pstmt.executeQuery();
+            if(!res.next()){
+                return NOT_EXISTS;
+            }
+            boolean isActive  = res.getBoolean(1);
+            pstmt = connection.prepareStatement("SELECT id from Sports WHERE id = ?");
+            pstmt.setInt(1, sportId);
+            pstmt.executeQuery();
+            res = pstmt.executeQuery();
+            if(!res.next()){
+                return NOT_EXISTS;
+            }
+            pstmt = connection.prepareStatement("SELECT aid from Participates WHERE aid = ? AND sid = ?");
+            pstmt.setInt(1, athleteId);
+            pstmt.setInt(2, sportId);
+            pstmt.executeQuery();
+            res = pstmt.executeQuery();
+            if(!res.next()){
+                return NOT_EXISTS;
+            }
             pstmt = connection.prepareStatement("UPDATE Participates SET standing=? WHERE aid=? AND sid=?");
             pstmt.setInt(1, place);
             pstmt.setInt(2, athleteId);
@@ -462,13 +539,34 @@ public class Solution {
     Connection connection = DBConnector.getConnection();
     PreparedStatement pstmt = null;
         try{
+            pstmt = connection.prepareStatement("SELECT active from Athletes WHERE id = ?");
+            pstmt.setInt(1, athleteId);
+            ResultSet res = pstmt.executeQuery();
+            if(!res.next()){
+                return NOT_EXISTS;
+            }
+            pstmt = connection.prepareStatement("SELECT id from Sports WHERE id = ?");
+            pstmt.setInt(1, sportId);
+            pstmt.executeQuery();
+            res = pstmt.executeQuery();
+            if(!res.next()){
+                return NOT_EXISTS;
+            }
+            pstmt = connection.prepareStatement("SELECT aid from Participates WHERE aid = ? AND sid = ?");
+            pstmt.setInt(1, athleteId);
+            pstmt.setInt(2, sportId);
+            pstmt.executeQuery();
+            res = pstmt.executeQuery();
+            if(!res.next()){
+                return NOT_EXISTS;
+            }
             pstmt = connection.prepareStatement("UPDATE Participates SET standing=NULL WHERE aid=? AND sid=?");
             pstmt.setInt(1, athleteId);
             pstmt.setInt(2, sportId);
             pstmt.execute();
+
         }
         catch (SQLException e){
-            e.printStackTrace();
             return handleError(Integer.valueOf(e.getSQLState()));
         }
         finally{
@@ -493,6 +591,9 @@ public class Solution {
         Connection connection = DBConnector.getConnection();
         PreparedStatement pstmt = null;
         try{
+            if(athleteId1 == athleteId2){
+                return BAD_PARAMS;
+            }
             pstmt = connection.prepareStatement("SELECT * from Athletes WHERE id = ?");
             pstmt.setInt(1, athleteId1);
             pstmt.executeQuery();
@@ -521,7 +622,6 @@ public class Solution {
 
         }
         catch (SQLException e){
-            e.printStackTrace();
             return handleError(Integer.valueOf(e.getSQLState()));
         }
         finally{
@@ -630,7 +730,7 @@ public class Solution {
             try {
                 connection.close();
             } catch (SQLException e) {
-                //e.printStackTrace()();
+
             }
         }
         return OK;
@@ -652,21 +752,17 @@ public class Solution {
             String allFriendsString = "SELECT id_two AS aid FROM Friends WHERE id_one = " + athleteId + " UNION SELECT id_one AS aid FROM Friends WHERE id_two = " + athleteId;
             pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW AllFriends AS " + allFriendsString);
             pstmt.execute();
-            pstmt = connection.prepareStatement("SELECT * FROM AllFriends");
+            pstmt = connection.prepareStatement("select * from AllFriends");
             pstmt.executeQuery();
-            System.out.println("All Friends: \n");
-            DBConnector.printResults(pstmt.getResultSet());
-
+            if(!pstmt.getResultSet().next()){
+                return true;
+            }
             String sportOfFriends = "SELECT sid FROM Participates inner join AllFriends on AllFriends.aid = Participates.aid" +
                     " UNION (SELECT sid FROM Observes inner join AllFriends on AllFriends.aid = Observes.aid)";
             pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW SportsOfFriends AS " + sportOfFriends);
             pstmt.execute();
             pstmt = connection.prepareStatement("SELECT * FROM SportsOfFriends");
             pstmt.executeQuery();
-            System.out.println("Sports Of Friends: \n");
-            DBConnector.printResults(pstmt.getResultSet());
-//            String allInPart = "SELECT sid from Participates WHERE View.id_two IN ( " + allFriendsString + ")";
-//            String intersect = "SELECT sid from ( "+ sportOfFriends + " ) as t WHERE NOT EXISTS ( " + allSports + " ) ";
             pstmt = connection.prepareStatement("SELECT SportsOfFriends.sid FROM SportsOfFriends full outer join AllSports on SportsOfFriends.sid = AllSports.sid" +
                     " where SportsOfFriends.sid is null or AllSports.sid is null");
             pstmt.executeQuery();
@@ -677,7 +773,6 @@ public class Solution {
 
         }
         catch (SQLException e){
-            e.printStackTrace();
             return false;
         }
         finally{
@@ -692,7 +787,6 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
                 return false;
             }
             try {
@@ -737,7 +831,7 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return 0;
             }
             try {
@@ -771,7 +865,7 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return 0;
             }
             try {
@@ -795,13 +889,16 @@ public class Solution {
             pstmt = connection.prepareStatement(" CREATE OR REPLACE VIEW CountryStandings AS SELECT aid, standing, country FROM Participates inner join" +
                     " AthletesFromCountry on AthletesFromCountry.id=Participates.aid");
             pstmt.execute();
-            pstmt = connection.prepareStatement("SELECT country, COUNT(standing) from CountryStandings GROUP BY country ORDER BY count DESC");
+            pstmt = connection.prepareStatement("SELECT country, COUNT(standing) from CountryStandings GROUP BY country ORDER BY count DESC, country ASC");
             pstmt.executeQuery();
             pstmt.getResultSet().next();
+            if(pstmt.getResultSet().getInt(2) == 0){
+                return "";
+            }
             bestCountry = pstmt.getResultSet().getString(1);
         }
         catch (SQLException e){
-            return "";
+            return null;
         }
         finally {
             try {
@@ -813,13 +910,13 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
-                return "";
+                //e.printStackTrace();
+                return null;
             }
             try {
                 connection.close();
             } catch (SQLException e) {
-                return "";
+                return null;
             }
         }
 
@@ -835,10 +932,12 @@ public class Solution {
             pstmt.execute();
             pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW NumAthletes AS select city, sum(athlete_count) from Sports GROUP BY city");
             pstmt.execute();
+            printQuery("select * from NumAthletes", pstmt, connection);
             pstmt = connection.prepareStatement(" CREATE OR REPLACE VIEW CityCounts AS SELECT NumSports.city, count, sum FROM NumSports inner join" +
                     " NumAthletes on NumSports.city=NumAthletes.city");
             pstmt.execute();
-            pstmt = connection.prepareStatement("select city, (sum / count) as avg from CityCounts ORDER BY avg DESC");
+            printQuery("select city, (1.0*sum / count) as avg from CityCounts ORDER BY avg DESC, city DESC", pstmt, connection);
+            pstmt = connection.prepareStatement("select city, (1.0*sum / count) as avg from CityCounts ORDER BY avg DESC, city DESC");
             pstmt.executeQuery();
             if(!pstmt.getResultSet().next()){
                 return "";
@@ -862,7 +961,7 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return null;
             }
             try {
@@ -906,7 +1005,7 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return new ArrayList<Integer>(Arrays.asList(0, 0, 0));
             }
             try {
@@ -927,13 +1026,15 @@ public class Solution {
             String s = "SELECT aid, (4 - standing) as rating FROM Participates";
             pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW Ratings AS " + s);
             pstmt.execute();
-            printQuery("SELECT aid, SUM(rating) FROM Ratings GROUP BY aid ORDER BY sum DESC, aid ASC", pstmt, connection);
+            //printQuery("SELECT aid, SUM(rating) FROM Ratings GROUP BY aid ORDER BY sum DESC, aid ASC", pstmt, connection);
             pstmt = connection.prepareStatement("SELECT aid, SUM(rating) FROM Ratings GROUP BY aid ORDER BY sum DESC, aid ASC");
             pstmt.executeQuery();
             ResultSet res = pstmt.getResultSet();
-            while(res.next()){
+            int count = 0;
+            while(res.next() && count < 10){
                 int val = res.getInt(1);
                 list.add(val);
+                count++;
             }
         }
         catch (SQLException e){
@@ -948,7 +1049,7 @@ public class Solution {
                     pstmt.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+               // e.printStackTrace();
                 return list;
             }
             try {
@@ -969,20 +1070,32 @@ public class Solution {
             String s = "SELECT sid FROM Participates Where aid = "+ athleteId + " UNION SELECT sid FROM Observes Where aid = "+ athleteId;
             pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW AthleteSports AS " + s);
             pstmt.execute();
-            printQuery("select * from AthleteSports", pstmt,connection);
             s = "select aid, sid from Participates where aid != " + athleteId + " union select aid, sid from Observes where aid != " + athleteId;
             pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW OtherSports AS " + s);
             pstmt.execute();
-            printQuery("select * from OtherSports", pstmt,connection);
-            printQuery("SELECT aid, count(aid) FROM OtherSports inner join AthleteSports on( OtherSports.sid = AthleteSports.sid ) GROUP BY aid", pstmt, connection);
-            printQuery("select aid, x.count / y.count as sum from (select count(*) from AthleteSports) x join (SELECT aid, count(aid) FROM OtherSports inner join AthleteSports on( OtherSports.sid = AthleteSports.sid ) GROUP BY aid) y on 1=1", pstmt, connection);
-//            pstmt = connection.prepareStatement("SELECT aid, SUM(rating) FROM Ratings GROUP BY aid ORDER BY sum DESC, aid ASC");
-//            pstmt.executeQuery();
-//            ResultSet res = pstmt.getResultSet();
-//            while(res.next()){
-//                int val = res.getInt(1);
-//                list.add(val);
-//            }
+            pstmt = connection.prepareStatement("select * from AthleteSports");
+            pstmt.executeQuery();
+            if(!pstmt.getResultSet().next()){
+                pstmt = connection.prepareStatement("select id from Athletes ORDER BY id ASC");
+                pstmt.executeQuery();
+                ResultSet res = pstmt.getResultSet();
+                int count = 0;
+                while(res.next() && count < 10){
+                    int val = res.getInt(1);
+                    list.add(val);
+                    count++;
+                }
+                return list;
+            }
+            pstmt = connection.prepareStatement("select aid, (1.0*y.count / x.count) as precent from (select count(*) from AthleteSports) x inner join (SELECT aid, count(aid) FROM OtherSports inner join AthleteSports on( OtherSports.sid = AthleteSports.sid ) GROUP BY aid) y on (1.0*y.count / x.count) >= 0.5 ORDER BY precent DESC, aid ASC");
+            pstmt.executeQuery();
+            ResultSet res = pstmt.getResultSet();
+            int count = 0;
+            while(res.next() && count < 10){
+                int val = res.getInt(1);
+                list.add(val);
+                count++;
+            }
         }
         catch (SQLException e){
             return list;
@@ -1012,7 +1125,64 @@ public class Solution {
     }
 
     public static ArrayList<Integer> getSportsRecommendation(Integer athleteId) {
-        return new ArrayList<>();
+        Connection connection = DBConnector.getConnection();
+        PreparedStatement pstmt = null;
+        ArrayList list = new ArrayList<Integer>();
+        try {
+            String s = "SELECT sid FROM Participates Where aid = "+ athleteId + " UNION SELECT sid FROM Observes Where aid = "+ athleteId;
+            pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW AthleteSports AS " + s);
+            pstmt.execute();
+            s = "select aid, sid from Participates where aid != " + athleteId + " union select aid, sid from Observes where aid != " + athleteId;
+            pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW OtherSports AS " + s);
+            pstmt.execute();
+            pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW Closest as select aid, (1.0*y.count / x.count) as precent from (select count(*) from AthleteSports) x inner join (SELECT aid, count(aid) FROM OtherSports inner join AthleteSports on( OtherSports.sid = AthleteSports.sid ) GROUP BY aid) y on (1.0*y.count / x.count) >= 0.5 ORDER BY precent DESC, aid ASC");
+            pstmt.execute();
+            pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW AllClosestSports as select sid from Participates inner join Closest on Closest.aid = Participates.aid UNION select sid from Observes inner join Closest on Closest.aid = Observes.aid ");
+            pstmt.execute();
+            pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW FullSportsList as SELECT OtherSports.sid FROM OtherSports left join AthleteSports on( OtherSports.sid = AthleteSports.sid ) where AthleteSports.sid is null");
+            pstmt.execute();
+            //pstmt = connection.prepareStatement("select sid from AllClosestSports left join AthleteSports on AllClosestSports.sid = AthleteSports.sid");
+            pstmt = connection.prepareStatement("select sid, count(sid) from FullSportsList GROUP BY sid ORDER BY count DESC, sid ASC");
+            pstmt.executeQuery();
+            ResultSet res = pstmt.getResultSet();
+            int count = 0;
+            while(res.next() && count < 3){
+                int val = res.getInt(1);
+                list.add(val);
+                count++;
+            }
+        }
+        catch (SQLException e){
+            return list;
+        }
+        finally {
+            try {
+                pstmt = connection.prepareStatement("DROP VIEW IF EXISTS FullSportsList");
+                pstmt.execute();
+                pstmt = connection.prepareStatement("DROP VIEW IF EXISTS AllClosestSports");
+                pstmt.execute();
+                pstmt = connection.prepareStatement("DROP VIEW IF EXISTS Closest");
+                pstmt.execute();
+                pstmt = connection.prepareStatement("DROP VIEW IF EXISTS OtherSports");
+                pstmt.execute();
+                pstmt = connection.prepareStatement("DROP VIEW IF EXISTS AthleteSports");
+                pstmt.execute();
+
+                if(pstmt != null){
+                    pstmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return list;
+            }
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                return list;
+            }
+        }
+
+        return list;
     }
 
     private static ReturnValue handleError(int errVal){
