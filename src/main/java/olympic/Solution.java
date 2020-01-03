@@ -33,7 +33,7 @@ public class Solution {
                     "    id integer NOT NULL,\n" +
                     "    name varchar(255) NOT NULL,\n" +
                     "    city varchar(255) NOT NULL,\n" +
-                    "    athlete_count integer NOT NULL,\n" +
+                    "    athlete_count integer DEFAULT 0 NOT NULL,\n" +
                     "    PRIMARY KEY (id),\n" +
                     "    CHECK (id > 0)\n" +
                     ")");
@@ -100,9 +100,11 @@ public class Solution {
         PreparedStatement statement = null;
 
         try {
+            statement = connection.prepareStatement("DELETE FROM Friends");
+            statement.execute();
             statement = connection.prepareStatement("DELETE FROM Participates");
             statement.execute();
-            statement = connection.prepareStatement("DELETE FROM Observing");
+            statement = connection.prepareStatement("DELETE FROM Observes");
             statement.execute();
             statement = connection.prepareStatement("DELETE FROM Athletes");
             statement.execute();
@@ -260,12 +262,11 @@ public class Solution {
         PreparedStatement pstmt = null;
         try {
             int sid = sport.getId();
-            pstmt = connection.prepareStatement("INSERT INTO Sports (id, name, city, athlete_count)" +
-                    " VALUES ( ?, ? , ? , ? )");
+            pstmt = connection.prepareStatement("INSERT INTO Sports (id, name, city)" +
+                    " VALUES ( ?, ? , ?)");
             pstmt.setInt(1,sid);
             pstmt.setString(2, sport.getName());
             pstmt.setString(3,sport.getCity());
-            pstmt.setInt(4,sport.getAthletesCount());
             pstmt.execute();
 
         } catch (SQLException e) {
@@ -779,11 +780,11 @@ public class Solution {
             pstmt = connection.prepareStatement("SELECT SportsOfFriends.sid FROM SportsOfFriends full outer join AllSports on SportsOfFriends.sid = AllSports.sid" +
                     " where SportsOfFriends.sid is null or AllSports.sid is null");
             pstmt.executeQuery();
-//            pstmt.getResultSet().next();
-//            if(pstmt.getResultSet().getString(1) != null){
-//                return false;
-//            }
             if(pstmt.getResultSet().next()){
+                String n = pstmt.getResultSet().getString(1);
+                if(n == null){
+                    return true;
+                }
                 return false;
             }
 
@@ -907,7 +908,7 @@ public class Solution {
             pstmt.execute();
             pstmt = connection.prepareStatement("SELECT country, COUNT(standing) from CountryStandings GROUP BY country ORDER BY count DESC, country ASC");
             pstmt.executeQuery();
-            pstmt.getResultSet().next();
+           // pstmt.getResultSet().next();
             if(!pstmt.getResultSet().next()){
                 return "";
             }
@@ -1045,8 +1046,11 @@ public class Solution {
             String s = "SELECT aid, (4 - standing) as rating FROM Participates";
             pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW Ratings AS " + s);
             pstmt.execute();
-
-            pstmt = connection.prepareStatement("SELECT aid, SUM(rating) FROM Ratings where rating is not null GROUP BY aid ORDER BY sum DESC, aid ASC");
+            s = "SELECT aid, SUM(rating) FROM Ratings where rating is not null GROUP BY aid ORDER BY sum DESC, aid ASC";
+            pstmt = connection.prepareStatement("create or replace view FinalRatings as " + s);
+            pstmt.execute();
+            s = "select * from FinalRatings ";
+            pstmt = connection.prepareStatement(s);
             pstmt.executeQuery();
             ResultSet res = pstmt.getResultSet();
             int count = 0;
@@ -1055,12 +1059,24 @@ public class Solution {
                 list.add(val);
                 count++;
             }
+            if(count < 10){
+                pstmt = connection.prepareStatement("select id from Athletes left join FinalRatings on Athletes.id = FinalRatings.aid where FinalRatings.aid IS NULL");
+                pstmt.executeQuery();
+                res = pstmt.getResultSet();
+                while(res.next() && count < 10){
+                    int val = res.getInt(1);
+                    list.add(val);
+                    count++;
+                }
+            }
         }
         catch (SQLException e){
             return list;
         }
         finally {
             try {
+                pstmt = connection.prepareStatement("DROP VIEW IF EXISTS FinalRatings");
+                pstmt.execute();
                 pstmt = connection.prepareStatement("DROP VIEW IF EXISTS Ratings");
                 pstmt.execute();
                 pstmt = connection.prepareStatement("DROP VIEW IF EXISTS Ratings1");
@@ -1088,6 +1104,12 @@ public class Solution {
         PreparedStatement pstmt = null;
         ArrayList list = new ArrayList<Integer>();
         try {
+            pstmt = connection.prepareStatement("SELECT * from Athletes WHERE id = ?");
+            pstmt.setInt(1, athleteId);
+            pstmt.executeQuery();
+            if(!pstmt.getResultSet().next()){
+                return list;
+            }
             String s = "SELECT sid FROM Participates Where aid = "+ athleteId + " UNION SELECT sid FROM Observes Where aid = "+ athleteId;
             pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW AthleteSports AS " + s);
             pstmt.execute();
@@ -1160,8 +1182,8 @@ public class Solution {
             pstmt = connection.prepareStatement("select * from AthleteSports");
             pstmt.executeQuery();
             if(!pstmt.getResultSet().next()){
-                pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW Closest AS select id from Athletes where id != ? ORDER BY id ASC");
-                pstmt.setInt(1 , athleteId);
+                pstmt = connection.prepareStatement("CREATE OR REPLACE VIEW Closest AS select id as aid from Athletes where id != "+ athleteId +" ORDER BY id ASC");
+                //pstmt.setInt(1 , athleteId);
                 pstmt.execute();
             }
             else{

@@ -101,21 +101,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.test.Test_2_Basic">
-    <configuration name="Example" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="olympic.Example" />
-      <module name="236363_winter_18-19_hw2" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="olympic.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MegaTest.Test_1_Basic" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.GradingTests.BestCountryTest">
+    <configuration name="GradingTests.AthletePopularTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="236363_winter_18-19_hw2" />
       <extension name="coverage">
         <pattern>
@@ -124,14 +111,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="olympic" />
-      <option name="MAIN_CLASS_NAME" value="olympic.MegaTest" />
-      <option name="METHOD_NAME" value="Test_1_Basic" />
+      <option name="MAIN_CLASS_NAME" value="olympic.GradingTests" />
+      <option name="METHOD_NAME" value="AthletePopularTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SimpleTest2.getMostRatedAth" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GradingTests.BestCountryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="236363_winter_18-19_hw2" />
       <extension name="coverage">
         <pattern>
@@ -140,14 +127,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="olympic" />
-      <option name="MAIN_CLASS_NAME" value="olympic.SimpleTest2" />
-      <option name="METHOD_NAME" value="getMostRatedAth" />
+      <option name="MAIN_CLASS_NAME" value="olympic.GradingTests" />
+      <option name="METHOD_NAME" value="BestCountryTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="test.Test_1_Basic" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GradingTests.CloseAthletesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="236363_winter_18-19_hw2" />
       <extension name="coverage">
         <pattern>
@@ -156,14 +143,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="olympic" />
-      <option name="MAIN_CLASS_NAME" value="olympic.test" />
-      <option name="METHOD_NAME" value="Test_1_Basic" />
+      <option name="MAIN_CLASS_NAME" value="olympic.GradingTests" />
+      <option name="METHOD_NAME" value="CloseAthletesTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="test.Test_2_Basic" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GradingTests.MostRatedAthletes" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="236363_winter_18-19_hw2" />
       <extension name="coverage">
         <pattern>
@@ -172,27 +159,43 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="olympic" />
-      <option name="MAIN_CLASS_NAME" value="olympic.test" />
-      <option name="METHOD_NAME" value="Test_2_Basic" />
+      <option name="MAIN_CLASS_NAME" value="olympic.GradingTests" />
+      <option name="METHOD_NAME" value="MostRatedAthletes" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GradingTests.RecommendationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="236363_winter_18-19_hw2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="olympic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="olympic" />
+      <option name="MAIN_CLASS_NAME" value="olympic.GradingTests" />
+      <option name="METHOD_NAME" value="RecommendationTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.SimpleTest2.getMostRatedAth" />
-      <item itemvalue="JUnit.MegaTest.Test_1_Basic" />
-      <item itemvalue="Application.Example" />
-      <item itemvalue="JUnit.test.Test_1_Basic" />
-      <item itemvalue="JUnit.test.Test_2_Basic" />
+      <item itemvalue="JUnit.GradingTests.MostRatedAthletes" />
+      <item itemvalue="JUnit.GradingTests.CloseAthletesTest" />
+      <item itemvalue="JUnit.GradingTests.RecommendationTest" />
+      <item itemvalue="JUnit.GradingTests.AthletePopularTest" />
+      <item itemvalue="JUnit.GradingTests.BestCountryTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.test.Test_2_Basic" />
-        <item itemvalue="JUnit.SimpleTest2.getMostRatedAth" />
-        <item itemvalue="JUnit.test.Test_1_Basic" />
-        <item itemvalue="Application.Example" />
-        <item itemvalue="JUnit.MegaTest.Test_1_Basic" />
+        <item itemvalue="JUnit.GradingTests.BestCountryTest" />
+        <item itemvalue="JUnit.GradingTests.AthletePopularTest" />
+        <item itemvalue="JUnit.GradingTests.RecommendationTest" />
+        <item itemvalue="JUnit.GradingTests.CloseAthletesTest" />
+        <item itemvalue="JUnit.GradingTests.MostRatedAthletes" />
       </list>
     </recent_temporary>
   </component>
@@ -266,7 +269,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575493136014</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="need to fix joinAtheleteSport">
+      <created>1575711248236</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1575711248236</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,73 +303,48 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>168</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/olympic/SimpleTest.java</url>
           <line>50</line>
           <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>875</line>
+          <line>876</line>
           <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>968</line>
+          <line>972</line>
           <option name="timeStamp" value="139" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>1014</line>
+          <line>1018</line>
           <option name="timeStamp" value="149" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>1009</line>
+          <line>1013</line>
           <option name="timeStamp" value="151" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>1059</line>
+          <line>1076</line>
           <option name="timeStamp" value="152" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>1122</line>
-          <option name="timeStamp" value="156" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>528</line>
+          <line>529</line>
           <option name="timeStamp" value="169" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>781</line>
-          <option name="timeStamp" value="175" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>782</line>
-          <option name="timeStamp" value="177" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>783</line>
-          <option name="timeStamp" value="178" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>1010</line>
+          <line>1014</line>
           <option name="timeStamp" value="181" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>1011</line>
+          <line>1015</line>
           <option name="timeStamp" value="182" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -394,7 +379,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>873</line>
+          <line>874</line>
           <option name="timeStamp" value="197" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -414,38 +399,93 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>472</line>
+          <line>473</line>
           <option name="timeStamp" value="207" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>556</line>
-          <option name="timeStamp" value="217" />
+          <url>file://$PROJECT_DIR$/src/test/java/olympic/GradingTests.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="225" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/olympic/GradingTests.java</url>
+          <line>1183</line>
+          <option name="timeStamp" value="229" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/olympic/GradingTests.java</url>
+          <line>1427</line>
+          <option name="timeStamp" value="237" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/olympic/GradingTests.java</url>
+          <line>1426</line>
+          <option name="timeStamp" value="238" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/olympic/GradingTests.java</url>
+          <line>1462</line>
+          <option name="timeStamp" value="239" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>563</line>
-          <option name="timeStamp" value="219" />
+          <line>1219</line>
+          <option name="timeStamp" value="240" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>580</line>
-          <option name="timeStamp" value="220" />
+          <line>1210</line>
+          <option name="timeStamp" value="241" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>571</line>
-          <option name="timeStamp" value="221" />
+          <line>1189</line>
+          <option name="timeStamp" value="242" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/olympic/GradingTests.java</url>
+          <line>1463</line>
+          <option name="timeStamp" value="243" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/olympic/GradingTests.java</url>
+          <line>1468</line>
+          <option name="timeStamp" value="244" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/olympic/GradingTests.java</url>
+          <line>1485</line>
+          <option name="timeStamp" value="245" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>573</line>
-          <option name="timeStamp" value="222" />
+          <line>792</line>
+          <option name="timeStamp" value="249" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/olympic/GradingTests.java</url>
+          <line>671</line>
+          <option name="timeStamp" value="252" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/olympic/GradingTests.java</url>
+          <line>672</line>
+          <option name="timeStamp" value="253" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
-          <line>919</line>
-          <option name="timeStamp" value="223" />
+          <line>618</line>
+          <option name="timeStamp" value="254" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
+          <line>612</line>
+          <option name="timeStamp" value="255" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/olympic/Solution.java</url>
+          <line>627</line>
+          <option name="timeStamp" value="256" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
